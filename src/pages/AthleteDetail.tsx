@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import {
   ArrowLeft, Save, Phone, AlertTriangle, Heart, Trophy,
   Activity, Calendar, ChevronDown, ChevronUp, Loader, UserPlus
@@ -15,7 +15,7 @@ interface Props {
   saving: boolean;
 }
 
-const COACHES = ['Interino', 'Sergio', 'Crisha', 'Jesus'];
+const COACHES = ['Bruno', 'Interino', 'Sergio', 'Crisha', 'Jesus'];
 const BLOOD_TYPES: BloodType[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 const GENDERS: { v: Gender; l: string }[] = [{ v: 'M', l: 'Masculino' }, { v: 'F', l: 'Femenino' }, { v: 'Otro', l: 'Otro' }];
 const INJURY_LEVELS: { v: InjuryLevel; l: string; color: string }[] = [
@@ -30,17 +30,23 @@ function initials(name: string) {
   return name.split(' ').slice(0, 2).map(n => n[0]).join('').toUpperCase();
 }
 
-const DEFAULT_STUDENT: Student = {
-  id: 0, name: '', coach: 'Interino', peloton: 0, mainDistance: '21km',
-  trainingType: 'Presencial', active: true, notes: '', hasAlert: false, alertMessage: '',
-  medical: { conditions: '', currentInjury: '', medications: '', emergencyContact: '', emergencyPhone: '' },
-  performance: { weeklyKmGoal: 40, currentTrainingPhase: 'Base', shoeKm: 0 },
-};
-
 export default function AthleteDetail({ data, onSave, saving }: Props) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const isNew = id === 'new';
+
+  const locationGroup = (location.state as { group?: string } | null)?.group;
+  const defaultGroup: 'mypp' | 'bdfit' = locationGroup === 'bdfit' ? 'bdfit' : 'mypp';
+  const defaultCoach = defaultGroup === 'bdfit' ? 'Bruno' : 'Interino';
+
+  const DEFAULT_STUDENT: Student = {
+    id: 0, name: '', coach: defaultCoach, peloton: 0, mainDistance: '21km',
+    group: defaultGroup,
+    trainingType: 'Presencial', active: true, notes: '', hasAlert: false, alertMessage: '',
+    medical: { conditions: '', currentInjury: '', medications: '', emergencyContact: '', emergencyPhone: '' },
+    performance: { weeklyKmGoal: 40, currentTrainingPhase: 'Base', shoeKm: 0 },
+  };
 
   const original = isNew
     ? DEFAULT_STUDENT
@@ -75,7 +81,7 @@ export default function AthleteDetail({ data, onSave, saving }: Props) {
     await onSave(toSave);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
-    if (isNew) navigate(`/athletes/${toSave.id}`, { replace: true });
+    if (isNew) navigate(`/athletes/${toSave.id}`, { replace: true, state: { group: toSave.group } });
   }, [student, onSave, isNew, data.students, navigate]);
 
   // Recent sessions for history tab

@@ -7,7 +7,7 @@ import type { AppData } from '../types';
 
 interface Props { data: AppData }
 
-const COACHES = ['Todos', 'Interino', 'Sergio', 'Crisha', 'Jesus'];
+const COACHES = ['Todos', 'Bruno', 'Interino', 'Sergio', 'Crisha', 'Jesus'];
 const PELOTONS = ['Todos', '0', '1', '2', '3', '4', '5', '6', '7'];
 
 function initials(name: string) {
@@ -28,6 +28,7 @@ export default function Athletes({ data }: Props) {
 
   const filtered = useMemo(() => {
     return data.students.filter(s => {
+      if (s.group === 'bdfit') return false;
       if (!showInactive && !s.active) return false;
       if (search && !s.name.toLowerCase().includes(search.toLowerCase())) return false;
       if (coachFilter !== 'Todos' && s.coach !== coachFilter) return false;

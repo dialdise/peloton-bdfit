@@ -26,11 +26,14 @@ export interface Performance {
   vo2max?: number;
 }
 
+export type StudentGroup = 'mypp' | 'bdfit';
+
 export interface Student {
   id: number;
   name: string;
   coach: string;
   peloton: number;
+  group?: StudentGroup;
   mainDistance: string;
   lastRaceTime?: string;
   trainingType: TrainingType;

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import PinLock from './components/PinLock';
 import Dashboard from './pages/Dashboard';
+import BDFitPage from './pages/BDFitPage';
 import Athletes from './pages/Athletes';
 import AthleteDetail from './pages/AthleteDetail';
 import CheckIn from './pages/CheckIn';
@@ -32,6 +33,7 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Dashboard data={data} />} />
+        <Route path="/bdfit" element={<BDFitPage data={data} />} />
         <Route path="/athletes" element={<Athletes data={data} />} />
         <Route path="/athletes/:id" element={
           <AthleteDetail data={data} onSave={handleSaveStudent} saving={saving} />

@@ -15,10 +15,12 @@ export function loadData(): AppData {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as AppData;
+      // Migrate: ensure all students have a group
+      parsed.students = parsed.students.map(s => s.group ? s : { ...s, group: 'mypp' as const });
       // Merge new students if initial data has more
-      if (parsed.students.length < INITIAL_STUDENTS.length) {
+      if (parsed.students.filter(s => s.group === 'mypp' || !s.group).length < INITIAL_STUDENTS.length) {
         const existingIds = new Set(parsed.students.map(s => s.id));
-        const newStudents = INITIAL_STUDENTS.filter(s => !existingIds.has(s.id));
+        const newStudents = INITIAL_STUDENTS.filter(s => !existingIds.has(s.id)).map(s => ({ ...s, group: 'mypp' as const }));
         parsed.students = [...parsed.students, ...newStudents];
       }
       return parsed;
@@ -27,7 +29,7 @@ export function loadData(): AppData {
     // corrupted data, reset
   }
   return {
-    students: INITIAL_STUDENTS,
+    students: INITIAL_STUDENTS.map(s => ({ ...s, group: 'mypp' as const })),
     trainingDays: {},
     settings: DEFAULT_SETTINGS,
     version: 1,

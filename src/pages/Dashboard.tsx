@@ -14,7 +14,7 @@ interface Props { data: AppData }
 export default function Dashboard({ data }: Props) {
   const navigate = useNavigate();
   const todayLog = data.trainingDays[today];
-  const activeStudents = data.students.filter(s => s.active);
+  const activeStudents = data.students.filter(s => s.active && (s.group === 'mypp' || !s.group));
 
   const todayPresent = todayLog?.sessions.filter(s => s.status === 'present').length ?? 0;
   const todayAbsent = todayLog?.sessions.filter(s => s.status === 'absent').length ?? 0;
@@ -53,7 +53,7 @@ export default function Dashboard({ data }: Props) {
       {/* Hero Header */}
       <div className="bg-brand-dark px-4 pt-safe pb-6">
         <p className="text-white/60 text-sm mt-2">{greet()}, Coach 👋</p>
-        <h1 className="text-white text-2xl font-bold mt-0.5">Peloton BDFIT</h1>
+        <h1 className="text-white text-2xl font-bold mt-0.5">Pelotón MYPP</h1>
         <p className="text-brand-orange text-sm font-medium capitalize">
           {format(new Date(), "EEEE, d 'de' MMMM", { locale: es })}
         </p>
