@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import PinLock from './components/PinLock';
 import Dashboard from './pages/Dashboard';
 import Athletes from './pages/Athletes';
@@ -29,7 +29,7 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Dashboard data={data} />} />
         <Route path="/athletes" element={<Athletes data={data} />} />
@@ -49,6 +49,6 @@ export default function App() {
           />
         } />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
