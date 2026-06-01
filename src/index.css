@@ -10,7 +10,7 @@
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: #f3f4f6;
+    background-color: #F4F3EE;
     margin: 0;
     padding: 0;
     overscroll-behavior: none;
@@ -21,7 +21,7 @@
     max-width: 430px;
     margin: 0 auto;
     position: relative;
-    background: #f3f4f6;
+    background: #F4F3EE;
   }
 
   @media (min-width: 1024px) {
@@ -40,7 +40,7 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .pb-safe {
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
   }
 
   @media (min-width: 1024px) {
@@ -50,18 +50,15 @@
   }
 }
 
-/* Smooth scroll everywhere */
 html {
   scroll-behavior: smooth;
 }
 
-/* Remove default input styles on mobile */
 input, textarea, select, button {
   -webkit-appearance: none;
   appearance: none;
 }
 
-/* Custom scrollbar for content areas */
 .scrollable::-webkit-scrollbar {
   display: none;
 }

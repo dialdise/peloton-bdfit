@@ -17,7 +17,7 @@ export default function SaveButton({ saving, lastSaved, error, onClick }: Props)
           ? 'bg-red-500 text-white'
           : saving
           ? 'bg-gray-200 text-gray-500'
-          : 'bg-brand-orange text-white shadow-md shadow-orange-200'
+          : 'bg-brand-orange text-brand-dark shadow-md'
       }`}
     >
       {saving ? (

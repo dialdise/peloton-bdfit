@@ -63,7 +63,7 @@ export default function Athletes({ data }: Props) {
               key={c}
               onClick={() => setCoachFilter(c)}
               className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-                coachFilter === c ? 'bg-brand-dark text-white' : 'bg-white text-gray-600 border border-gray-200'
+                coachFilter === c ? 'bg-brand-dark text-white' : 'bg-white text-gray-600 border border-[#E5E4DF]'
               }`}
             >
               {c}
@@ -78,7 +78,7 @@ export default function Athletes({ data }: Props) {
               key={p}
               onClick={() => setPelotonFilter(p)}
               className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-                pelotonFilter === p ? 'bg-brand-orange text-white' : 'bg-white text-gray-600 border border-gray-200'
+                pelotonFilter === p ? 'bg-brand-orange text-brand-dark' : 'bg-white text-gray-600 border border-[#E5E4DF]'
               }`}
             >
               {p === 'Todos' ? 'Todos' : `P${p}`}
@@ -98,7 +98,7 @@ export default function Athletes({ data }: Props) {
         </div>
 
         {/* List */}
-        <div className="bg-white rounded-2xl shadow-sm divide-y divide-gray-50 overflow-hidden">
+        <div className="bg-white rounded-3xl shadow-card divide-y divide-[#F4F3EE] overflow-hidden">
           {filtered.length === 0 ? (
             <p className="text-center text-gray-400 py-12 text-sm">No se encontraron atletas</p>
           ) : (

@@ -19,7 +19,7 @@ export default class ErrorBoundary extends Component<Props, State> {
           <p className="text-white/50 text-sm mb-6">{this.state.error.message}</p>
           <button
             onClick={() => { this.setState({ error: null }); window.location.hash = '/'; }}
-            className="bg-brand-orange text-white px-6 py-3 rounded-xl font-semibold"
+            className="bg-brand-orange text-brand-dark px-6 py-3 rounded-xl font-semibold"
           >
             Volver al inicio
           </button>

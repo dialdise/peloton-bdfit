@@ -69,52 +69,53 @@ export default function Stats({ data }: Props) {
       <div className="px-4 pt-4 space-y-4">
         {/* Summary Cards */}
         <div className="grid grid-cols-2 gap-3">
-          <BigStat icon={<Users size={22} className="text-brand-orange" />} label="Atletas activos" value={activeStudents.length} />
-          <BigStat icon={<Activity size={22} className="text-blue-500" />} label="Asistencia global" value={`${overallAttendance}%`} />
-          <BigStat icon={<AlertTriangle size={22} className="text-orange-400" />} label="Lesionados" value={injuredCount} />
-          <BigStat icon={<Target size={22} className="text-red-400" />} label="Con alerta" value={alertCount} />
+          <BigStat icon={<Users size={20} className="text-brand-orange" />} label="Atletas activos" value={activeStudents.length} />
+          <BigStat icon={<Activity size={20} className="text-blue-500" />} label="Asistencia global" value={`${overallAttendance}%`} />
+          <BigStat icon={<AlertTriangle size={20} className="text-orange-400" />} label="Lesionados" value={injuredCount} />
+          <BigStat icon={<Target size={20} className="text-red-400" />} label="Con alerta" value={alertCount} />
         </div>
 
         {/* 7-day chart */}
-        <div className="bg-white rounded-2xl shadow-sm p-4">
+        <div className="bg-white rounded-3xl shadow-card p-5">
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp size={16} className="text-brand-orange" />
-            <span className="text-sm font-semibold text-gray-800">Asistencia — últimos 7 días</span>
+            <span className="text-sm font-semibold text-[#1C1C1E]">Asistencia — últimos 7 días</span>
           </div>
-          <div className="flex items-end gap-1 h-24">
+          <div className="flex items-end gap-2 h-24">
             {last7.map(d => (
               <div key={d.date} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full flex flex-col justify-end" style={{ height: '72px' }}>
+                <div className="relative w-full rounded-full overflow-hidden" style={{ height: '72px' }}>
+                  <div className="absolute inset-0 bg-[#F4F3EE] rounded-full" />
                   <div
-                    className="w-full bg-brand-orange rounded-t-lg transition-all duration-500 min-h-[4px]"
-                    style={{ height: `${(d.present / maxPresent) * 72}px` }}
+                    className="absolute bottom-0 left-0 right-0 bg-brand-orange rounded-full transition-all duration-500"
+                    style={{ height: `${(d.present / maxPresent) * 72}px`, minHeight: d.present > 0 ? '4px' : '0' }}
                   />
                 </div>
-                <span className="text-[10px] text-gray-400 capitalize">{d.label}</span>
-                <span className="text-[10px] font-bold text-gray-600">{d.present}</span>
+                <span className="text-[9px] text-[#9B9B9B] capitalize">{d.label}</span>
+                <span className="text-[9px] font-bold text-[#1C1C1E]">{d.present}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Peloton Distribution */}
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-100">
-            <span className="text-sm font-semibold text-gray-800">Distribución por Peloton</span>
+        <div className="bg-white rounded-3xl shadow-card overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#F4F3EE]">
+            <span className="text-sm font-semibold text-[#1C1C1E]">Distribución por Pelotón</span>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-[#F4F3EE]">
             {pelotonDistribution.map(({ peloton, count }) => (
-              <div key={peloton} className="px-4 py-3 flex items-center gap-3">
+              <div key={peloton} className="px-5 py-3 flex items-center gap-3">
                 <PelotonBadge peloton={peloton} />
                 <div className="flex-1">
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-[#F4F3EE] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-brand-orange rounded-full"
+                      className="h-full bg-brand-orange rounded-full transition-all"
                       style={{ width: `${(count / activeStudents.length) * 100}%` }}
                     />
                   </div>
                 </div>
-                <span className="text-sm font-bold text-gray-700 w-6 text-right">{count}</span>
+                <span className="text-sm font-bold text-[#1C1C1E] w-6 text-right">{count}</span>
               </div>
             ))}
           </div>
@@ -206,9 +207,12 @@ function AlertTriangle({ size, className }: { size: number; className?: string }
 
 function BigStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: number | string }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-4">
-      <div className="flex items-center gap-2 mb-2">{icon}<span className="text-xs text-gray-500">{label}</span></div>
-      <span className="text-3xl font-bold text-gray-800">{value}</span>
+    <div className="bg-white rounded-3xl shadow-card p-4">
+      <div className="flex items-center gap-2 mb-2">
+        <div className="w-7 h-7 bg-[#F4F3EE] rounded-xl flex items-center justify-center">{icon}</div>
+        <span className="text-xs text-[#9B9B9B] font-medium">{label}</span>
+      </div>
+      <span className="text-3xl font-bold text-[#1C1C1E]">{value}</span>
     </div>
   );
 }

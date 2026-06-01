@@ -281,7 +281,7 @@ export default function CheckIn({ data, onSessionUpdate, saving }: Props) {
                     <button
                       onClick={() => saveSessionDetails(student.id)}
                       disabled={isSaving}
-                      className="w-full bg-brand-orange text-white py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                      className="w-full bg-brand-orange text-brand-dark py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                     >
                       {isSaving ? <Loader size={15} className="animate-spin" /> : <Save size={15} />}
                       Guardar sesión

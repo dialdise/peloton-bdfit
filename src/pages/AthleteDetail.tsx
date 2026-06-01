@@ -107,7 +107,7 @@ export default function AthleteDetail({ data, onSave, saving }: Props) {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 bg-brand-orange text-white px-4 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform"
+            className="flex items-center gap-2 bg-brand-orange text-brand-dark px-4 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform"
           >
             {saving ? <Loader size={15} className="animate-spin" /> : saved ? '✓' : <Save size={15} />}
             {saving ? 'Guardando…' : saved ? 'Guardado' : 'Guardar'}
